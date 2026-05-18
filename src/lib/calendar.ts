@@ -14,7 +14,7 @@ export function createGoogleCalendarLink(settings: WeddingSettings) {
 
   const params = new URLSearchParams({
     action: "TEMPLATE",
-    text: "Wedding Reception of Muhammad Musharraf & Fathima Noorja",
+    text: "Wedding Reception of Mohammed Musharraf & Fathima Noorja",
     dates: `${start}/${end}`,
     details: "We look forward to celebrating this special day with you.",
     location: settings.venue_name,

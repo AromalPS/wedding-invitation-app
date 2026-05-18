@@ -15,7 +15,7 @@ export const invitationCopy = {
   blessing:
     "With hearts overflowing with gratitude and joy, we thank Allah for bringing us together, for writing this beautiful chapter in our lives, and for guiding us on this sacred journey.",
   couple: {
-    bridegroom: "Muhammad Musharraf",
+    bridegroom: "Mohammed Musharraf",
     bridegroomFamily: "S/O: Ashraf Ali & Khadeeja Begum",
     bride: "Fathima Noorja",
     brideFamily: "D/O: Usman Haji Kallayi & Sajitha K",

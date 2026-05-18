@@ -32,6 +32,6 @@ npm run dev
 
 ## Content seed from supplied draft
 
-- Couple: Muhammad Musharraf & Fathima Noorja
+- Couple: Mohammed Musharraf & Fathima Noorja
 - Wedding date: 15 June 2026
 - Quranic verse: Qur’an 30:21
