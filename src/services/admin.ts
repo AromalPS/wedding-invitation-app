@@ -40,6 +40,23 @@ export async function getGuests(): Promise<Array<Guest & { rsvps: RSVP[] | null 
   const supabase = createAdminClient();
   if (!supabase) return [];
 
-  const { data } = await supabase.from("guests").select("*, rsvps(*)").order("created_at", { ascending: false });
-  return (data ?? []) as Array<Guest & { rsvps: RSVP[] | null }>;
+  const [{ data: guests, error: guestError }, { data: rsvps, error: rsvpError }] = await Promise.all([
+    supabase.from("guests").select("*").order("created_at", { ascending: false }),
+    supabase.from("rsvps").select("id, guest_id, attending, total_members, responded_at"),
+  ]);
+
+  if (guestError) throw new Error(`Unable to load guests: ${guestError.message}`);
+  if (rsvpError) throw new Error(`Unable to load guest RSVPs: ${rsvpError.message}`);
+
+  const rsvpsByGuest = new Map<string, RSVP[]>();
+  for (const rsvp of (rsvps ?? []) as RSVP[]) {
+    const existing = rsvpsByGuest.get(rsvp.guest_id) ?? [];
+    existing.push(rsvp);
+    rsvpsByGuest.set(rsvp.guest_id, existing);
+  }
+
+  return ((guests ?? []) as Guest[]).map((guest) => ({
+    ...guest,
+    rsvps: rsvpsByGuest.get(guest.id) ?? [],
+  }));
 }
