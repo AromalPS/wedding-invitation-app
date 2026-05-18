@@ -6,11 +6,15 @@ export async function getMetrics(): Promise<Metrics> {
   const supabase = createAdminClient();
   if (!supabase) return demoMetrics;
 
-  const [{ count: totalGuests }, { count: totalInvitationOpens }, { data: rsvps }] = await Promise.all([
+  const [{ count: totalGuests }, { count: totalInvitationOpens }, { data: rsvps, error: rsvpError }] = await Promise.all([
     supabase.from("guests").select("*", { count: "exact", head: true }),
     supabase.from("analytics").select("*", { count: "exact", head: true }).eq("event_type", "invitation_opened"),
-    supabase.from("rsvps").select("*"),
+    supabase.from("rsvps").select("id, guest_id, attending, total_members, responded_at"),
   ]);
+
+  if (rsvpError) {
+    throw new Error(`Unable to load RSVP metrics: ${rsvpError.message}`);
+  }
 
   const typedRsvps = (rsvps ?? []) as RSVP[];
   const totalConfirmed = typedRsvps.filter((rsvp) => rsvp.attending).length;

@@ -52,7 +52,7 @@ export default async function GuestsPage() {
                 const rsvp = guest.rsvps?.[0];
                 const link = `${siteUrl()}/invite/${guest.invite_code}`;
                 const message = encodeURIComponent(
-                  `Assalamu Alaikum ✨\n\nYou are warmly invited to our wedding celebration.\n\nInvitation Link:\n${link}`,
+                  `Assalamu Alaikum ☺️You are warmly invited to our wedding celebration.\n\nInvitation Link:\n${link}`,
                 );
                 return (
                   <tr key={guest.id} className="border-t border-[#b78a55]/10 text-[#423126]">
