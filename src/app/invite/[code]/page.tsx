@@ -3,6 +3,9 @@ import { InvitationCard } from "@/components/invitation/invitation-card";
 import { LoadingScreen } from "@/components/invitation/loading-screen";
 import { getInviteByCode, getSettings, markInviteOpened } from "@/services/invites";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function InvitePage({ params }: { params: Promise<{ code: string }> }) {
   const { code } = await params;
   const [invite, settings] = await Promise.all([getInviteByCode(code), getSettings()]);
